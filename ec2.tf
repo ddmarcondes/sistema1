@@ -28,6 +28,20 @@ resource "aws_instance" "terraform-1" {
   }
 }
 
+resource "aws_instance" "terraform-2" {
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = "t2.micro"
+  key_name = "diogo" 
+  subnet_id = var.subnet_public_id
+  vpc_security_group_ids = [aws_security_group.permitir_ssh_http.id]
+  associate_public_ip_address = true
+
+  tags = {
+    Name = "Terraform-02"
+ # Insira o nome da instância de sua preferência.
+  }
+}
+
 variable "vpc_id" {
   default = "vpc-0303fb420f519ea05" # Sua VPC
 }
